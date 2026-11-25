@@ -1,0 +1,29 @@
+{
+  "_note": "Seed list of startup competitions, accelerators, grants and awards. Deadlines are Perth dates (AWST). 'needs' lists hard requirements checked against profile.json. 'month' is the usual opening month for recurring programs.",
+  "programs": [
+    {"name": "WorldWiDE EdTech Awards 2027", "url": "https://worldwide-edtech.org/awards", "deadline": "2026-11-27", "value": "Recognition, free", "kind": "award", "needs": []},
+    {"name": "GSV Cup 50 2027", "url": "https://asugsvsummit.com/gsv-cup-faq", "deadline": "2026-12-02", "value": "Summit pass, demo slot, investor intros", "kind": "competition", "needs": []},
+    {"name": "Animation Imagination (Fairground x CapCut)", "url": "https://fairground.tv/creator/fairground-animation-imagination", "deadline": "2026-12-02", "value": "US$15k pool", "kind": "competition", "needs": []},
+    {"name": "Freo Startup Fest Pitch Frenzy", "url": "https://westtechfest.com.au/events/freo-startup-fest", "deadline": "2026-12-09", "value": "30s pitch, Golden Ticket", "kind": "pitch", "needs": ["in_person_perth"]},
+    {"name": "Base44 Accelerator Cohort 2", "url": "https://base44.com/accelerator", "deadline": "2026-12-12", "value": "US$75k cash, 0% equity", "kind": "accelerator", "needs": ["base44_app"]},
+    {"name": "ETIH Innovation Awards 2027", "url": "https://www.edtechinnovationhub.com/etih-innovation-awards-2027/how-to-enter-the-etih-innovation-awards-2027", "deadline": "2027-02-27", "value": "Recognition, entry fee", "kind": "award", "needs": []},
+    {"name": "WA Multicultural Awards 2027", "url": "https://www.omi.wa.gov.au/WAMulticulturalAwards", "deadline": "2027-01-24", "value": "Recognition", "kind": "award", "needs": ["nominated_by_other"]},
+    {"name": "Microsoft Imagine Cup 2027 (Student Startup)", "url": "https://aka.ms/ImagineCup2027TCs", "deadline": "2027-03-01", "value": "US$25k + Azure credit", "kind": "competition", "needs": ["company", "student"]},
+    {"name": "Entrepreneurship World Cup 2027", "url": "https://www.entrepreneurshipworldcup.com", "deadline": "2027-05-31", "value": "Up to US$200k, no equity", "kind": "competition", "needs": ["revenue"]},
+    {"name": "WA Innovators of the Year 2027", "url": "https://www.wa.gov.au/organisation/department-of-energy-and-economic-diversification/wa-innovators-of-the-year-2026-application-information", "deadline": null, "month": 5, "value": "A$60k first prize", "kind": "award", "needs": ["abn"]},
+    {"name": "INCITE Awards 2027 Start-Up of the Year", "url": "https://www.inciteawards.org.au/about-the-incite-awards/award-categories/", "deadline": null, "month": 1, "value": "Recognition", "kind": "award", "needs": ["company"]},
+    {"name": "Plus Eight 2027 (Spacecubed)", "url": "https://spacecubed.com/programs/plus-eight", "deadline": null, "value": "Share of A$700k fund, SAFE", "kind": "accelerator", "needs": ["full_time"]},
+    {"name": "Spacecubed AI Fellowship", "url": "https://spacecubed.com/programs/ai-fellowship", "deadline": null, "value": "Credits from A$25k, investor pitch", "kind": "accelerator", "needs": ["in_person_perth"]},
+    {"name": "Z Fellows", "url": "https://www.zfellows.com", "deadline": null, "rolling": true, "value": "US$10k optional, 1 week", "kind": "fellowship", "needs": []},
+    {"name": "Y Combinator", "url": "https://www.ycombinator.com/apply", "deadline": null, "rolling": true, "value": "US$500k", "kind": "accelerator", "needs": ["relocate_us"]},
+    {"name": "Basis Fellowship", "url": "https://basisfellowship.org", "deadline": null, "rolling": true, "value": "US$50k, no equity", "kind": "fellowship", "needs": []},
+    {"name": "PostHog for Startups", "url": "https://posthog.com/startups", "deadline": null, "rolling": true, "value": "US$50k PostHog credit", "kind": "perks", "needs": []},
+    {"name": "NVIDIA Inception", "url": "https://www.nvidia.com/en-us/startups/", "deadline": null, "rolling": true, "value": "Credits, training, VC intros", "kind": "perks", "needs": ["company"]},
+    {"name": "Tools Competition", "url": "https://tools-competition.org", "deadline": null, "month": 9, "value": "US$50k-300k", "kind": "grant", "needs": []},
+    {"name": "RevenueCat Shipaton", "url": "https://www.revenuecat.com/shipaton/", "deadline": null, "month": 8, "value": "US$700k+ pool", "kind": "competition", "needs": ["new_app"]},
+    {"name": "Milken-Penn GSE Education Business Plan Competition", "url": "https://milkenpennprize.org", "deadline": null, "month": 1, "value": "Up to ~US$40k", "kind": "competition", "needs": []},
+    {"name": "MIT Solve Global Learning", "url": "https://solve.mit.edu/challenges", "deadline": null, "month": 9, "value": "From US$10k per Solver", "kind": "grant", "needs": []},
+    {"name": "QS Reimagine Education", "url": "https://www.qs.com/conferences/reimagine/apply", "deadline": null, "month": 3, "value": "US$25k grand prize", "kind": "award", "needs": []},
+    {"name": "Startmate Accelerator", "url": "https://www.startmate.com/accelerator", "deadline": null, "month": 4, "value": "A$120k for 8%", "kind": "accelerator", "needs": ["full_time"]}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "_note": "What the owner already has. Programs whose 'needs' are not met are shown as blocked, not hidden.",
+  "city": "Perth",
+  "has": ["student", "revenue", "in_person_perth"],
+  "missing": {
+    "abn": "needs an ABN",
+    "company": "needs a registered company (Pty Ltd)",
+    "full_time": "needs a full-time founder",
+    "relocate_us": "needs to move to the US for the batch",
+    "base44_app": "needs a working Base44 app",
+    "nominated_by_other": "someone else must nominate",
+    "new_app": "app must launch during the contest"
+  }
+}

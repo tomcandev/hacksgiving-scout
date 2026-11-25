@@ -1,4 +1,4 @@
-"""hacksgiving-scout: find hackathons worth Tom's evenings, then tell him.
+"""hacksgiving-scout: find hackathons and startup programs worth Tom's evenings, then tell him.
 
     python3 -m scout.main run            # one pass: fetch, filter, score, deliver
     python3 -m scout.main run --dry-run  # no delivery, no state change
@@ -15,7 +15,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
-from . import sources
+from . import programs, sources
 from .deliver import deliver
 from .ideas import idea_for, uncle_says
 from .rules import Verdict, evaluate
@@ -46,13 +46,15 @@ def scan(today: date) -> list[Verdict]:
     return [evaluate(e, today) for e in events]
 
 
-def render(verdicts: list[Verdict], new_ids: set[str], now: datetime) -> tuple[str, str]:
+def render(verdicts: list[Verdict], new_ids: set[str], now: datetime,
+           progs: list | None = None, first_run: bool = False) -> tuple[str, str]:
     kept = sorted((v for v in verdicts if v.keep), key=lambda v: -v.score)
     short = [v for v in kept if v.score >= SHORTLIST_MIN]
     new_short = [v for v in short if v.event.id in new_ids]
     skipped = [v for v in verdicts if not v.keep]
-    title = (f"🦃 Hackathon digest {now:%d %b %Y}: {len(new_short)} new, "
-             f"{len(short)} worth it")
+    soon = [p for p in (progs or []) if p.deadline and 0 <= (p.deadline - now.date()).days <= 14]
+    title = (f"🦃 Scout digest {now:%d %b %Y}: {len(new_short)} new hackathons, "
+             f"{len(short)} worth it, {len(soon)} startup deadlines in 2 weeks")
     lines = [
         f"_Scanned {len(verdicts)} online hackathons from Devpost at {now:%H:%M} Perth. "
         f"{len(kept)} passed Tom's filter, {len(short)} scored {SHORTLIST_MIN}+._",
@@ -91,7 +93,10 @@ def render(verdicts: list[Verdict], new_ids: set[str], now: datetime) -> tuple[s
         if "crypto" in v.headline_reason or "hardware" in v.headline_reason:
             lines.append(f"- 👴 on _{v.event.title}_: {uncle_says(v)}")
             break
-    lines += ["", "</details>", "",
+    lines += ["", "</details>"]
+    if progs:
+        lines += programs.render_section(progs, now.date(), first_run)
+    lines += ["", "---",
               "Ran on a Fly.io Sprite, delivered through the Sprites GitHub connector. "
               "Source: https://github.com/tomcandev/hacksgiving-scout"]
     return title, "\n".join(lines)
@@ -102,7 +107,9 @@ def run(dry_run: bool = False) -> int:
     state = load_state()
     verdicts = scan(now.date())
     new_ids = {v.event.id for v in verdicts if v.keep and v.event.id not in state["seen"]}
-    title, body = render(verdicts, new_ids, now)
+    pseen = state.setdefault("programs", {})
+    progs = programs.scan(now.date(), pseen)
+    title, body = render(verdicts, new_ids, now, progs, first_run=not pseen)
     out = HOME / "out"
     out.mkdir(parents=True, exist_ok=True)
     (out / f"digest-{now:%Y%m%d-%H%M}.md").write_text(f"# {title}\n\n{body}\n")
@@ -113,6 +120,7 @@ def run(dry_run: bool = False) -> int:
         print(title + "\n\n" + body)
         return 0
     url = deliver(title, body)
+    programs.remember(progs, pseen)
     for v in verdicts:
         if v.keep:
             state["seen"].setdefault(v.event.id, now.isoformat())
