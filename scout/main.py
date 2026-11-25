@@ -38,12 +38,18 @@ def save_state(state: dict) -> None:
 
 def scan(today: date) -> list[Verdict]:
     events = sources.fetch_devpost()
+    print(f"[devpost] {len(events)} open + upcoming online hackathons", flush=True)
     # Cheap pre-filter before fetching rules pages
     candidates = [e for e in events if e.online and e.prize_usd > 0]
     with ThreadPoolExecutor(max_workers=8) as pool:
         for ev, text in zip(candidates, pool.map(sources.fetch_rules, candidates)):
             ev.rules_text = text
-    return [evaluate(e, today) for e in events]
+    print(f"[rules] read {sum(bool(e.rules_text) for e in candidates)} rules pages for eligibility", flush=True)
+    verdicts = [evaluate(e, today) for e in events]
+    kept = [v for v in verdicts if v.keep]
+    print(f"[filter] {len(kept)} pass (online, AU ok, solo, cash), "
+          f"{sum(v.score >= SHORTLIST_MIN for v in kept)} score {SHORTLIST_MIN}+", flush=True)
+    return verdicts
 
 
 def render(verdicts: list[Verdict], new_ids: set[str], now: datetime,
@@ -109,6 +115,8 @@ def run(dry_run: bool = False) -> int:
     new_ids = {v.event.id for v in verdicts if v.keep and v.event.id not in state["seen"]}
     pseen = state.setdefault("programs", {})
     progs = programs.scan(now.date(), pseen)
+    print(f"[programs] {len(progs)} startup programs re-read, "
+          f"{sum(1 for p in progs if p.change and p.change != 'new')} changed", flush=True)
     title, body = render(verdicts, new_ids, now, progs, first_run=not pseen)
     out = HOME / "out"
     out.mkdir(parents=True, exist_ok=True)
