@@ -13,7 +13,7 @@ Deadline: before midnight PST Sun 29 Nov 2026 = 16:00 Mon 30 Nov Perth.
 
 > Built a hackathon scout for #Hacksgiving 🦃
 >
-> It lives on a @flydotio Sprite, reads 80+ hackathons plus startup comps and accelerators daily, keeps what I can enter from Perth, and files a digest via the Sprites GitHub connector. A Weird Uncle roasts each pick.
+> It lives on a @flydotio Sprite, reads 80+ hackathons plus startup comps and accelerators daily, keeps what I can enter, and files a digest via the Sprites GitHub connector. A Weird Uncle roasts each pick.
 >
 > github.com/tomcandev/hacksgiving-scout
 
