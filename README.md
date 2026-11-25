@@ -1,6 +1,6 @@
 # hacksgiving-scout 🦃
 
-A personal agent that lives on a [Fly.io Sprite](https://fly.io/sprites), reads every open online hackathon on Devpost each morning, keeps only the ones a solo indie dev in Perth can actually enter and win, and drops a digest into GitHub through the Sprites GitHub connector. A Weird Uncle comments on each pick.
+A personal agent that lives on a [Fly.io Sprite](https://fly.io/sprites). Each morning it reads every open online hackathon on Devpost and re-checks a list of startup competitions, accelerators, grants and awards, keeps only what a solo indie dev in Perth can actually enter and win, and drops one digest into GitHub through the Sprites GitHub connector. A Weird Uncle comments on each pick.
 
 Built for [Fly.io Hacksgiving 2026](https://fly.io/hacksgiving/) (23–29 Nov 2026).
 
@@ -17,6 +17,8 @@ Built for [Fly.io Hacksgiving 2026](https://fly.io/hacksgiving/) (23–29 Nov 20
 9. Run daily at 08:00 Perth as a Sprite service; each run opens a new digest issue and closes the previous one.
 10. Keep it stdlib-only Python so the Sprite needs no install step.
 
+Added mid-week: startup competitions, accelerators and grants. There is no API for those, so the agent keeps a seed list of official pages (`scout/programs.json`), re-reads each page every run, flags dates that move and applications that open or close, counts down deadlines, and marks programs blocked by a missing requirement (ABN, company, full-time) from `scout/profile.json`.
+
 ## How it works
 
 ```
@@ -24,6 +26,7 @@ Built for [Fly.io Hacksgiving 2026](https://fly.io/hacksgiving/) (23–29 Nov 20
 │  sprite-env service "scout" → python3 -m scout.main loop│
 │    ├─ sources.py  Devpost API + each event's /rules     │
 │    ├─ rules.py    filter + score (Tom's criteria)       │
+│    ├─ programs.py startup programs: page diff + deadlines│
 │    ├─ ideas.py    project idea + Weird Uncle one-liner  │
 │    └─ deliver.py  POST api.sprites.dev/v1/gateway/      │
 │                   github/<conn>/repos/…/issues          │
