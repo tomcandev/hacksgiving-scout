@@ -15,11 +15,12 @@ import urllib.request
 GATEWAY = os.environ.get("SPRITES_GATEWAY", "https://api.sprites.dev/v1/gateway")
 
 
-def _call(method: str, url: str, body: dict | None = None) -> dict | list:
+def _call(method: str, url: str, body: dict | None = None,
+          accept: str = "application/json") -> dict | list:
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(url, data=data, method=method, headers={
         "Content-Type": "application/json",
-        "Accept": "application/vnd.github+json",
+        "Accept": accept,
         "User-Agent": "hacksgiving-scout",
     })
     with urllib.request.urlopen(req, timeout=30) as resp:
@@ -51,7 +52,7 @@ class GitHubIssues:
         self.base = f"{GATEWAY}/github/{connection}"
 
     def _gh(self, method: str, path: str, body: dict | None = None):
-        return _call(method, f"{self.base}{path}", body)
+        return _call(method, f"{self.base}{path}", body, accept="application/vnd.github+json")
 
     def send(self, title: str, body: str) -> str:
         try:
