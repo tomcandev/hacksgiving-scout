@@ -6,7 +6,7 @@ Deadline: before midnight PST Sun 29 Nov 2026 = 16:00 Mon 30 Nov Perth.
 ## Form answers
 
 - **Code:** https://github.com/tomcandev/hacksgiving-scout
-- **Demo:** (video link, filled after upload)
+- **Demo:** https://github.com/tomcandev/hacksgiving-scout/blob/main/evidence/demo.mp4 (62s; first real digest: https://github.com/tomcandev/hacksgiving-scout/issues/1)
 - **What it does:** A personal scout that lives on a Fly.io Sprite: every morning it reads every open online Devpost hackathon (rules pages included) and re-checks startup competitions, accelerators and grants, keeps only what a solo dev in Perth can enter and win, and files one scored digest with app ideas as a GitHub issue through the Sprites GitHub connector. A Weird Uncle heckles every pick.
 
 ## Social post (X / Bluesky)

@@ -66,14 +66,14 @@ def terminal(lines: list[str], caption: str) -> Image.Image:
 
 def screenshot_pages(path: Path, caption: str) -> list[Image.Image]:
     shot = Image.open(path).convert("RGB")
-    scale = (W - 80) / shot.width
+    scale = min((W - 80) / shot.width, (H - 110) / shot.height)
     shot = shot.resize((W - 80, int(shot.height * scale)))
     view_h = H - 110
     pages = []
     top = 0
     while True:
         img = Image.new("RGB", (W, H), BG)
-        img.paste(shot.crop((0, top, shot.width, min(top + view_h, shot.height))), (40, 30))
+        img.paste(shot.crop((0, top, shot.width, min(top + view_h, shot.height))), ((W - shot.width) // 2, 30))
         ImageDraw.Draw(img).text((W // 2, H - 36), caption, font=font(SANS, 24), fill=DIM, anchor="mm")
         pages.append(img)
         if top + view_h >= shot.height:
@@ -91,7 +91,7 @@ def main():
     reel = Reel(tmp)
     reel.hold(card("hacksgiving-scout",
                    "A personal hackathon + startup-program scout on a Fly.io Sprite",
-                   "Fly.io Hacksgiving 2026 · github.com/tomcandev/hacksgiving-scout"), 4)
+                   "Fly.io Hacksgiving 2026 · github.com/tomcandev/hacksgiving-scout"), 5)
 
     blocks = Path(a.log).read_text().split("\n## ")
     for block in blocks:
@@ -101,14 +101,14 @@ def main():
         step = max(1, len(lines) // 24)
         for i in range(0, len(lines), step):
             shown = lines[: i + step]
-            reel.hold(terminal(shown, caption), 0.25)
-        reel.hold(terminal(lines, caption), 3)
+            reel.hold(terminal(shown, caption), 0.45)
+        reel.hold(terminal(lines, caption), 6)
 
     for s in a.shots:
-        name = Path(s).stem.split("-", 1)[-1].replace("-", " ")
+        name = Path(s).stem.split("-", 2)[-1].replace("-", " ").capitalize()
         pages = screenshot_pages(Path(s), name)
         for pg in pages:
-            reel.hold(pg, 3.5 if len(pages) > 1 else 6)
+            reel.hold(pg, 5 if len(pages) > 1 else 9)
 
     reel.hold(card("Runs every morning at 8:00 Perth",
                    "Devpost + rules pages · startup programs · GitHub connector · Weird Uncle",

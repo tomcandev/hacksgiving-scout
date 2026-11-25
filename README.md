@@ -4,6 +4,10 @@ A personal agent that lives on a [Fly.io Sprite](https://fly.io/sprites). Each m
 
 Built for [Fly.io Hacksgiving 2026](https://fly.io/hacksgiving/) (23–29 Nov 2026).
 
+**Demo (62s):** [evidence/demo.mp4](evidence/demo.mp4) · **First real digest:** [issue #1](https://github.com/tomcandev/hacksgiving-scout/issues/1)
+
+![Digest issue](evidence/issue-1-digest-issue-arrives.png)
+
 ## Plan (written before the code)
 
 1. Source: Devpost's public hackathon API (open + upcoming, online only), sorted by prize.

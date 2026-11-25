@@ -2,4 +2,3 @@ __pycache__/
 *.pyc
 .sprite
 .DS_Store
-evidence/*.mp4

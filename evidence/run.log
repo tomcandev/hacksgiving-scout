@@ -1,0 +1,15 @@
+## The agent lives on a Fly.io Sprite
+$ sprite list
+hacksgiving-scout
+$ sprite exec -- sprite-env services list
+service scout: running  cmd: python3 -u -m scout.main loop  env SCOUT_HOUR=8
+$ curl -s https://api.sprites.dev/v1/gateway/list   # connectors this Sprite may use
+connector: github as tomcandev  (credential held by the Fly.io gateway, not the Sprite)
+
+## One run, by hand (normally 8:00 Perth daily)
+$ sprite exec -- python3 -m scout.main run
+[devpost] 85 open + upcoming online hackathons
+[rules] read 48 rules pages for eligibility
+[filter] 38 pass (online, AU ok, solo, cash), 15 score 65+
+[programs] 24 startup programs re-read, 0 changed
+[deliver] digest posted via Sprites GitHub connector: https://github.com/tomcandev/hacksgiving-scout/issues/1
