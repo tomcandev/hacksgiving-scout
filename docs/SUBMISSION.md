@@ -17,4 +17,4 @@ Deadline: before midnight PST Sun 29 Nov 2026 = 16:00 Mon 30 Nov Perth.
 >
 > github.com/tomcandev/hacksgiving-scout
 
-(Bluesky handle: @fly.io. Attach the demo video.)
+Posted 26 Nov 2026: https://x.com/tomcandev/status/2125758268668871113
